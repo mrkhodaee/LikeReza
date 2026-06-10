@@ -3,59 +3,22 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import SplitText from "./components/SplitText";
-import TextType from "./components/TextType";
-import Header from './components/Header';
 
 function App() {
-  const handleAnimationComplete = () => {
-  console.log('All letters have animated!');
-};
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <Header/>
-     
-
-      {/* <section id="center">
+      <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1><SplitText
-  text="Hello, you!"
-  className="text-2xl font-semibold text-center"
-  delay={50}
-  duration={1.25}
-  ease="power3.out"
-  splitType="chars"
-  from={{ opacity: 0, y: 40 }}
-  to={{ opacity: 1, y: 0 }}
-  threshold={0.1}
-  rootMargin="-100px"
-  textAlign="center"
-  onLetterAnimationComplete={handleAnimationComplete}
-  showCallback
-/></h1>
-<h1><TextType 
-dir="rtl"
-  text={["من یک برنامه نویس تحت وب هستم."]}
-  typingSpeed={75}
-  pauseDuration={1500}
-  showCursor
-  cursorCharacter="_"
-  texts={["Welcome to React Bits! Good to see you!","Build some amazing experiences!"]}
-  deletingSpeed={50}
-  variableSpeedEnabled={false}
-  variableSpeedMin={60}
-  variableSpeedMax={120}
-  cursorBlinkDuration={0.5}
-/></h1>
-          <p dir='rtl'>
-            توسعه دهنده وب 
+          <h1>Get started</h1>
+          <p>
+            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
         </div>
         <button
@@ -151,7 +114,7 @@ dir="rtl"
       </section>
 
       <div className="ticks"></div>
-      <section id="spacer"></section> */}
+      <section id="spacer"></section>
     </>
   )
 }
