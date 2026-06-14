@@ -4,3 +4,9 @@
   height: 100%;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .lightfall-container {
+    height: 100dvh;
+  }
+}

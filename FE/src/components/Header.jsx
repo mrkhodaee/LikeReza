@@ -1,10 +1,10 @@
-//  'use client'
-
 import Lightfall from './Lightfall';
- 
+import ProfileCard from './ProfileCard';
+// import myImage from '../assets/my-image.jpg';
+
 function Header(){
     return(
- <div style={{ height: '100%', position: 'relative' }}>
+ <div style={{ height: '100dvh', position: 'relative' }}>
   <Lightfall
     colors={['#A6C8FF', '#5227FF', '#FF9FFC']}
     backgroundColor="#0A29FF"

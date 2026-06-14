@@ -1,23 +1,28 @@
-import { useEffect, useRef } from 'react';
-import { Renderer, Program, Mesh, Triangle } from 'ogl';
-import '../css/Lightfall.css';
-import TextType from './TextType';
+import { useEffect, useRef } from "react";
+import { Renderer, Program, Mesh, Triangle } from "ogl";
+import "../css/Lightfall.css";
+import TextType from "./TextType";
+import ProfileCard from "./ProfileCard";
+import myImage from "../assets/my-image.jpg";
 
 const MAX_COLORS = 8;
 
-const hexToRGB = hex => {
-  const c = hex.replace('#', '').padEnd(6, '0');
+const hexToRGB = (hex) => {
+  const c = hex.replace("#", "").padEnd(6, "0");
   const r = parseInt(c.slice(0, 2), 16) / 255;
   const g = parseInt(c.slice(2, 4), 16) / 255;
   const b = parseInt(c.slice(4, 6), 16) / 255;
   return [r, g, b];
 };
 
-const prepColors = input => {
-  const base = (input && input.length ? input : ['#A6C8FF', '#5227FF', '#FF9FFC']).slice(0, MAX_COLORS);
+const prepColors = (input) => {
+  const base = (
+    input && input.length ? input : ["#A6C8FF", "#5227FF", "#FF9FFC"]
+  ).slice(0, MAX_COLORS);
   const count = base.length;
   const arr = [];
-  for (let i = 0; i < MAX_COLORS; i++) arr.push(hexToRGB(base[Math.min(i, base.length - 1)]));
+  for (let i = 0; i < MAX_COLORS; i++)
+    arr.push(hexToRGB(base[Math.min(i, base.length - 1)]));
   const avg = [0, 0, 0];
   for (let i = 0; i < count; i++) {
     avg[0] += arr[i][0];
@@ -171,8 +176,8 @@ const Lightfall = ({
   className,
   dpr,
   paused = false,
-  colors = ['#A6C8FF', '#5227FF', '#FF9FFC'],
-  backgroundColor = '#0A29FF',
+  colors = ["#A6C8FF", "#5227FF", "#FF9FFC"],
+  backgroundColor = "#0A29FF",
   speed = 0.5,
   streakCount = 2,
   streakWidth = 1,
@@ -187,7 +192,7 @@ const Lightfall = ({
   mouseStrength = 0.5,
   mouseRadius = 1,
   mouseDampening = 0.15,
-  mixBlendMode
+  mixBlendMode,
 }) => {
   const containerRef = useRef(null);
   const rafRef = useRef(null);
@@ -202,24 +207,33 @@ const Lightfall = ({
     const container = containerRef.current;
     if (!container) return;
 
+    const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
+    const maxDpr = isMobile ? 1.5 : 3;
     const renderer = new Renderer({
-      dpr: dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
+      dpr:
+        dpr ??
+        Math.min(
+          typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1,
+          maxDpr
+        ),
       alpha: true,
-      antialias: true
+      antialias: true,
     });
     rendererRef.current = renderer;
     const gl = renderer.gl;
     const canvas = gl.canvas;
 
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.display = 'block';
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.display = "block";
     container.appendChild(canvas);
 
     const { arr, count, avg } = prepColors(colors);
 
     const uniforms = {
-      iResolution: { value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1] },
+      iResolution: {
+        value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1],
+      },
       iMouse: { value: [0, 0] },
       iTime: { value: 0 },
       uColor0: { value: arr[0] },
@@ -234,7 +248,9 @@ const Lightfall = ({
       uBgColor: { value: hexToRGB(backgroundColor) },
       uMouseColor: { value: avg },
       uSpeed: { value: speed },
-      uStreakCount: { value: Math.max(1, Math.min(16, Math.round(streakCount))) },
+      uStreakCount: {
+        value: Math.max(1, Math.min(16, Math.round(streakCount))),
+      },
       uStreakWidth: { value: streakWidth },
       uStreakLength: { value: streakLength },
       uGlow: { value: glow },
@@ -245,7 +261,7 @@ const Lightfall = ({
       uOpacity: { value: opacity },
       uMouseEnabled: { value: mouseInteraction ? 1 : 0 },
       uMouseStrength: { value: mouseStrength },
-      uMouseRadius: { value: mouseRadius }
+      uMouseRadius: { value: mouseRadius },
     };
 
     const program = new Program(gl, { vertex, fragment, uniforms });
@@ -259,14 +275,18 @@ const Lightfall = ({
     const resize = () => {
       const rect = container.getBoundingClientRect();
       renderer.setSize(rect.width, rect.height);
-      uniforms.iResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight, 1];
+      uniforms.iResolution.value = [
+        gl.drawingBufferWidth,
+        gl.drawingBufferHeight,
+        1,
+      ];
     };
 
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(container);
 
-    const onPointerMove = e => {
+    const onPointerMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       const scale = renderer.dpr || 1;
       const x = (e.clientX - rect.left) * scale;
@@ -277,10 +297,10 @@ const Lightfall = ({
       }
     };
     if (mouseInteraction) {
-      canvas.addEventListener('pointermove', onPointerMove);
+      canvas.addEventListener("pointermove", onPointerMove);
     }
 
-    const loop = t => {
+    const loop = (t) => {
       rafRef.current = requestAnimationFrame(loop);
       uniforms.iTime.value = t * 0.001;
       if (mouseDampening > 0) {
@@ -309,20 +329,21 @@ const Lightfall = ({
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      if (mouseInteraction) canvas.removeEventListener('pointermove', onPointerMove);
+      if (mouseInteraction)
+        canvas.removeEventListener("pointermove", onPointerMove);
       ro.disconnect();
       if (canvas.parentElement === container) {
         container.removeChild(canvas);
       }
       const callIfFn = (obj, key) => {
-        if (obj && typeof obj[key] === 'function') {
+        if (obj && typeof obj[key] === "function") {
           obj[key].call(obj);
         }
       };
-      callIfFn(programRef.current, 'remove');
-      callIfFn(geometryRef.current, 'remove');
-      callIfFn(meshRef.current, 'remove');
-      callIfFn(rendererRef.current, 'destroy');
+      callIfFn(programRef.current, "remove");
+      callIfFn(geometryRef.current, "remove");
+      callIfFn(meshRef.current, "remove");
+      callIfFn(rendererRef.current, "destroy");
       programRef.current = null;
       geometryRef.current = null;
       meshRef.current = null;
@@ -346,32 +367,43 @@ const Lightfall = ({
     mouseInteraction,
     mouseStrength,
     mouseRadius,
-    mouseDampening
+    mouseDampening,
   ]);
 
   return (
     <div
       ref={containerRef}
-      className={`lightfall-container ${className ?? ''}`}
+      className={`lightfall-container ${className ?? ""}`}
       style={{
-        ...(mixBlendMode && { mixBlendMode })}}
+        ...(mixBlendMode && { mixBlendMode }),
+      }}
     >
-        <div style={{ position: 'absolute', }}>
-            {/* Content Header */} <h1><TextType 
-dir="rtl"
-  text={["من یک برنامه نویس تحت وب هستم."]}
-  typingSpeed={75}
-  pauseDuration={1500}
-  showCursor
-  cursorCharacter="_"
-  deletingSpeed={50}
-  variableSpeedEnabled={false}
-  variableSpeedMin={60}
-  variableSpeedMax={120}
-  cursorBlinkDuration={0.5}
-/></h1>
-        </div>
-
+      <div style={{ width: "100%", position: "absolute" }}>
+        {/* <ProfileCard
+  enableMobileTilt={false}
+  onContactClick={() => console.log('Contact clicked')}
+  behindGlowColor="rgba(2, 5, 4, 0.67)"
+  iconUrl="/assets/demo/iconpattern.png"
+  behindGlowEnabled
+  innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+/> */}
+        {/* Content Header */}{" "}
+        <h1 style={{ right: 0 }}>
+          <TextType
+            dir="rtl"
+            text={["من یک برنامه نویس تحت وب هستم."]}
+            typingSpeed={75}
+            pauseDuration={1500}
+            showCursor
+            cursorCharacter="_"
+            deletingSpeed={50}
+            variableSpeedEnabled={false}
+            variableSpeedMin={60}
+            variableSpeedMax={120}
+            cursorBlinkDuration={0.5}
+          />
+        </h1>
+      </div>
     </div>
   );
 };
