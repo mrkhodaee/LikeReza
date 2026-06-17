@@ -4,7 +4,8 @@ import "../css/Lightfall.css";
 import TextType from "./TextType";
 import ProfileCard from "./ProfileCard";
 import myImage from "../assets/my-image.jpg";
-
+import CardNav from "./CardNav";
+import logo from "../assets/logo.png";
 const MAX_COLORS = 8;
 
 const hexToRGB = (hex) => {
@@ -172,6 +173,36 @@ void main() {
 }
 `;
 
+const items = [
+  {
+    label: "About",
+    bgColor: "#1B1722",
+    textColor: "#fff",
+    links: [
+      { label: "Company", ariaLabel: "About Company" },
+      { label: "Careers", ariaLabel: "About Careers" },
+    ],
+  },
+  {
+    label: "Projects",
+    bgColor: "#2F293A",
+    textColor: "#fff",
+    links: [
+      { label: "Featured", ariaLabel: "Featured Projects" },
+      { label: "Case Studies", ariaLabel: "Project Case Studies" },
+    ],
+  },
+  {
+    label: "Contact",
+    bgColor: "#2F293A",
+    textColor: "#fff",
+    links: [
+      { label: "Email", ariaLabel: "Email us" },
+      { label: "Twitter", ariaLabel: "Twitter" },
+      { label: "LinkedIn", ariaLabel: "LinkedIn" },
+    ],
+  },
+];
 const Lightfall = ({
   className,
   dpr,
@@ -207,14 +238,16 @@ const Lightfall = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
+    const isMobile =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
     const maxDpr = isMobile ? 1.5 : 3;
     const renderer = new Renderer({
       dpr:
         dpr ??
         Math.min(
           typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1,
-          maxDpr
+          maxDpr,
         ),
       alpha: true,
       antialias: true,
@@ -379,14 +412,29 @@ const Lightfall = ({
       }}
     >
       <div style={{ width: "100%", position: "absolute" }}>
+        <CardNav
+          logo={logo}
+          logoAlt="Company Logo"
+          items={items}
+          menuColor="#fff"
+          ease="power3.out"
+        />
         {/* <ProfileCard
-  enableMobileTilt={false}
-  onContactClick={() => console.log('Contact clicked')}
-  behindGlowColor="rgba(2, 5, 4, 0.67)"
-  iconUrl="/assets/demo/iconpattern.png"
-  behindGlowEnabled
-  innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
-/> */}
+          avatarUrl={myImage}
+          name="Like Reza"
+          title="web developer"
+          showUserInfo={true}
+          handle="like-reza.ir"
+          status="active"
+          contactText="show more.."
+          enableTilt={true}
+          enableMobileTilt={false}
+          onContactClick={() => console.log("Contact clicked")}
+          behindGlowColor="rgba(2, 5, 4, 0.67)"
+          iconUrl="/assets/demo/iconpattern.png"
+          behindGlowEnabled
+          innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+        /> */}
         {/* Content Header */}{" "}
         <h1 style={{ right: 0 }}>
           <TextType
