@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 import { Renderer, Program, Mesh, Triangle } from "ogl";
 import "../css/Lightfall.css";
 import TextType from "./TextType";
-import ProfileCard from "./ProfileCard";
-import myImage from "../assets/my-image.jpg";
 import CardNav from "./CardNav";
 import logo from "../assets/logo.png";
 const MAX_COLORS = 8;

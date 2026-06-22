@@ -1,6 +1,4 @@
 import Lightfall from './Lightfall';
-import ProfileCard from './ProfileCard';
-// import myImage from '../assets/my-image.jpg';
 
 function Header(){
     return(
