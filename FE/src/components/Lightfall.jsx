@@ -172,15 +172,15 @@ void main() {
   gl_FragColor = color;
 }
 `;
-
+// CardNav info
 const items = [
   {
     label: "About",
     bgColor: "#1B1722",
     textColor: "#fff",
     links: [
-      { label: "Company", ariaLabel: "About Company" },
-      { label: "Careers", ariaLabel: "About Careers" },
+      { label: "Company", url: "#", ariaLabel: "About Company" },
+      { label: "Careers", url: "#", ariaLabel: "About Careers" },
     ],
   },
   {
@@ -188,8 +188,8 @@ const items = [
     bgColor: "#2F293A",
     textColor: "#fff",
     links: [
-      { label: "Featured", ariaLabel: "Featured Projects" },
-      { label: "Case Studies", ariaLabel: "Project Case Studies" },
+      { label: "Featured", url: "#", ariaLabel: "Featured Projects" },
+      { label: "Case Studies", url: "#", ariaLabel: "Project Case Studies" },
     ],
   },
   {
@@ -197,12 +197,17 @@ const items = [
     bgColor: "#2F293A",
     textColor: "#fff",
     links: [
-      { label: "Email", ariaLabel: "Email us" },
-      { label: "Twitter", ariaLabel: "Twitter" },
-      { label: "LinkedIn", ariaLabel: "LinkedIn" },
+      { label: "ایمیل", url: "#", ariaLabel: "Email us" },
+      {
+        label: "اینستاگرام",
+        url: "https://www.instagram.com/like_reza.ir",
+        ariaLabel: "Twitter",
+      },
+      { label: "گیت هاب", url: "#", ariaLabel: "LinkedIn" },
     ],
   },
 ];
+// end card nav info
 const Lightfall = ({
   className,
   dpr,
@@ -419,24 +424,7 @@ const Lightfall = ({
           menuColor="#fff"
           ease="power3.out"
         />
-        {/* <ProfileCard
-          avatarUrl={myImage}
-          name="Like Reza"
-          title="web developer"
-          showUserInfo={true}
-          handle="like-reza.ir"
-          status="active"
-          contactText="show more.."
-          enableTilt={true}
-          enableMobileTilt={false}
-          onContactClick={() => console.log("Contact clicked")}
-          behindGlowColor="rgba(2, 5, 4, 0.67)"
-          iconUrl="/assets/demo/iconpattern.png"
-          behindGlowEnabled
-          innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
-        /> */}
-        {/* Content Header */}{" "}
-        <h1 style={{ right: 0 }}>
+        {/* <h1 style={{ right: 0 }}>
           <TextType
             dir="rtl"
             text={["من یک برنامه نویس تحت وب هستم."]}
@@ -450,7 +438,7 @@ const Lightfall = ({
             variableSpeedMax={120}
             cursorBlinkDuration={0.5}
           />
-        </h1>
+        </h1> */}
       </div>
     </div>
   );

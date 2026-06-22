@@ -12,12 +12,7 @@ const CardNav = ({
   ease = 'power3.out',
   menuColor
 }) => {
-  const getInitialExpanded = () => {
-    if (typeof window !== 'undefined') {
-      return window.matchMedia('(min-width: 769px)').matches;
-    }
-    return false;
-  };
+  const getInitialExpanded = () => false;
 
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(getInitialExpanded);
   const [isExpanded, setIsExpanded] = useState(getInitialExpanded);
@@ -55,7 +50,7 @@ const CardNav = ({
         return 60 + contentHeight;
       }
     }
-    return 260;
+    return 290;
   };
 
   const createTimeline = () => {
@@ -177,7 +172,7 @@ const CardNav = ({
               <div className="nav-card-label">{item.label}</div>
               <div className="nav-card-links">
                 {item.links?.map((lnk, i) => (
-                  <a key={`${lnk.label}-${i}`} className="nav-card-link" href={lnk.href} aria-label={lnk.ariaLabel}>
+                  <a key={`${lnk.label}-${i}`} className="nav-card-link" href={lnk.url} aria-label={lnk.ariaLabel}>
                     {/* <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" /> */}
                     {lnk.label}
                   </a>
