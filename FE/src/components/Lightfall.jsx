@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Renderer, Program, Mesh, Triangle } from "ogl";
 import "../css/Lightfall.css";
-import TextType from "./TextType";
 import CardNav from "./CardNav";
 import logo from "../assets/logo.png";
+import RightOfHeader from "./RightOfHeader";
+import LeftOfHeader from "./LeftOfHeader";
 const MAX_COLORS = 8;
 
 const hexToRGB = (hex) => {
@@ -422,21 +423,10 @@ const Lightfall = ({
           menuColor="#fff"
           ease="power3.out"
         />
-        {/* <h1 style={{ right: 0 }}>
-          <TextType
-            dir="rtl"
-            text={["من یک برنامه نویس تحت وب هستم."]}
-            typingSpeed={75}
-            pauseDuration={1500}
-            showCursor
-            cursorCharacter="_"
-            deletingSpeed={50}
-            variableSpeedEnabled={false}
-            variableSpeedMin={60}
-            variableSpeedMax={120}
-            cursorBlinkDuration={0.5}
-          />
-        </h1> */}
+<div style={{ display: 'flex' , alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <LeftOfHeader/>
+        <RightOfHeader/>
+</div>
       </div>
     </div>
   );

@@ -1,0 +1,52 @@
+.right-of-header {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  min-width: 280px;
+}
+
+.right-of-header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #67e8f9;
+  text-shadow:
+    0 0 20px #67e8f9,
+    0 0 40px #22d3ee;
+  margin: 0;
+  line-height: 1.4;
+  direction: rtl;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .right-of-header h1 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .right-of-header h1 {
+    font-size: 28px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 768px) {
+  .right-of-header {
+    flex: none;
+    width: 100%;
+    padding: 20px 16px;
+  }
+  .right-of-header h1 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .right-of-header h1 {
+    font-size: 18px;
+  }
+}
