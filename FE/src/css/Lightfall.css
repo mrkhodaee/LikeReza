@@ -10,3 +10,21 @@
     height: 100dvh;
   }
 }
+
+.header-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+    margin:0 40px;
+
+}
+
+@media (max-width: 768px) {
+  .header-content-wrapper .right-of-header {
+    order: 2;
+  }
+  .header-content-wrapper .left-of-header {
+    order: 1;
+  }
+}

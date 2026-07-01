@@ -42,7 +42,7 @@ const TextType = ({
   }, [variableSpeed, typingSpeed]);
 
   const getCurrentTextColor = () => {
-    if (textColors.length === 0) return 'inherit';
+    if (textColors.length === 0) return '#67e8f9';
     return textColors[currentTextIndex % textColors.length];
   };
 
@@ -163,6 +163,7 @@ const TextType = ({
     showCursor && (
       <span
         ref={cursorRef}
+        style={{ color : '#67e8f9' }}
         className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? 'text-type__cursor--hidden' : ''}`}
       >
         {cursorCharacter}

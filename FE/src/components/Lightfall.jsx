@@ -245,7 +245,7 @@ const Lightfall = ({
     const isMobile =
       typeof window !== "undefined" &&
       window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
-    const maxDpr = isMobile ? 1.5 : 3;
+    const maxDpr = isMobile ? 1 : 3;
     const renderer = new Renderer({
       dpr:
         dpr ??
@@ -267,6 +267,9 @@ const Lightfall = ({
 
     const { arr, count, avg } = prepColors(colors);
 
+    const mobileStreakCount = isMobile ? 1 : streakCount;
+    const mobileDensity = isMobile ? 0.3 : density;
+
     const uniforms = {
       iResolution: {
         value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1],
@@ -286,17 +289,17 @@ const Lightfall = ({
       uMouseColor: { value: avg },
       uSpeed: { value: speed },
       uStreakCount: {
-        value: Math.max(1, Math.min(16, Math.round(streakCount))),
+        value: Math.max(1, Math.min(16, Math.round(mobileStreakCount))),
       },
       uStreakWidth: { value: streakWidth },
       uStreakLength: { value: streakLength },
       uGlow: { value: glow },
-      uDensity: { value: density },
-      uTwinkle: { value: twinkle },
+      uDensity: { value: mobileDensity },
+      uTwinkle: { value: isMobile ? 0 : twinkle },
       uZoom: { value: zoom },
       uBgGlow: { value: backgroundGlow },
       uOpacity: { value: opacity },
-      uMouseEnabled: { value: mouseInteraction ? 1 : 0 },
+      uMouseEnabled: { value: isMobile ? 0 : (mouseInteraction ? 1 : 0) },
       uMouseStrength: { value: mouseStrength },
       uMouseRadius: { value: mouseRadius },
     };
@@ -337,8 +340,15 @@ const Lightfall = ({
       canvas.addEventListener("pointermove", onPointerMove);
     }
 
+    let hidden = false;
+    const handleVisibility = () => {
+      hidden = document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     const loop = (t) => {
       rafRef.current = requestAnimationFrame(loop);
+      if (hidden) return;
       uniforms.iTime.value = t * 0.001;
       if (mouseDampening > 0) {
         if (!lastTimeRef.current) lastTimeRef.current = t;
@@ -366,6 +376,7 @@ const Lightfall = ({
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      document.removeEventListener("visibilitychange", handleVisibility);
       if (mouseInteraction)
         canvas.removeEventListener("pointermove", onPointerMove);
       ro.disconnect();
@@ -423,9 +434,9 @@ const Lightfall = ({
           menuColor="#fff"
           ease="power3.out"
         />
-<div style={{ display: 'flex' , alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-        <LeftOfHeader/>
+<div className="header-content-wrapper">
         <RightOfHeader/>
+        <LeftOfHeader/>
 </div>
       </div>
     </div>

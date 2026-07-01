@@ -3,9 +3,11 @@ import TextType from "./TextType";
 
 function RightOfHeader() {
     return(
-        <div className="right-of-header">
+        <div className="right-of-header">            
+            <h1 style={{ color:'white' }}>محمدرضا خدائی</h1>
+            
             <TextType
-                as="h1"
+                as="h2"
                 dir="rtl"
                 text={[
                     "من یک برنامه‌نویس حرفه‌ای هستم",
@@ -15,11 +17,12 @@ function RightOfHeader() {
                 typingSpeed={70}
                 pauseDuration={2000}
                 showCursor
-                cursorCharacter="_"
+                cursorCharacter="|"
                 deletingSpeed={40}
                 variableSpeed={{ min: 50, max: 90 }}
                 cursorBlinkDuration={0.5}
             />
+
         </div>
     )
 }

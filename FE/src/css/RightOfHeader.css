@@ -1,7 +1,6 @@
 .right-of-header {
   flex: 1;
-  display: flex;
-  align-items: center;
+      text-align: right;
   justify-content: center;
   padding: 20px 40px;
   box-sizing: border-box;
@@ -11,10 +10,10 @@
 .right-of-header h1 {
   font-size: 42px;
   font-weight: 700;
-  color: #67e8f9;
+  /* color: #67e8f9;
   text-shadow:
     0 0 20px #67e8f9,
-    0 0 40px #22d3ee;
+    0 0 40px #22d3ee; */
   margin: 0;
   line-height: 1.4;
   direction: rtl;
