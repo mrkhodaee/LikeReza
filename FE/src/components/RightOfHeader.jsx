@@ -7,7 +7,7 @@ function RightOfHeader() {
             <h1 style={{ color:'white' }}>محمدرضا خدائی</h1>
             
             <TextType
-                as="h2"
+                as="p"
                 dir="rtl"
                 text={[
                     "من یک برنامه‌نویس حرفه‌ای هستم",
