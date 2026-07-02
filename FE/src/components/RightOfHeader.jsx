@@ -24,8 +24,8 @@ function RightOfHeader() {
             />
 
             <div className="header-buttons">
-                <button className="header-btn header-btn-primary">مشاهده پروژه‌ها</button>
                 <button className="header-btn header-btn-secondary">تماس با من</button>
+                <button className="header-btn header-btn-primary">مشاهده پروژه‌ها</button>
             </div>
 
         </div>
